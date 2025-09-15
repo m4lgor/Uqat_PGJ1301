@@ -1,7 +1,7 @@
 {
   "name": "com.uqat.pgj1301",
   "displayName": "UQAT PGJ1301 (Gameplay/Physique) — Kit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "unity": "6.0",
   "description": "Kit pédagogique: scripts runtime, shaders et TP par cours. Samples importables dans Assets/.",
   "author": { "name": "Hugo Millet" },
@@ -52,7 +52,7 @@
     "com.unity.modules.xr": "1.0.0"
   },
   "samples": [
-    { "displayName": "00 — Scripts partagés", "description": "Scripts communs modifiables par les étudiants.", "path": "Samples~/00_Shared" },
+    { "displayName": "00 — Fichiers Partagés", "description": "Scripts communs modifiables par les étudiants.", "path": "Samples~/00_Shared" },
     { "displayName": "01 — Cours Introduction", "description": "Scènes & scripts d’introduction.", "path": "Samples~/01_Introduction" },
     { "displayName": "02 — Cours Maths & Géométrie", "description": "Dot/Cross, spaces, matrices/quaternions.", "path": "Samples~/02_Mathematiques" },
     { "displayName": "03 — Cours Newton & Forces", "description": "Lois de Newton, forces, gravité (scènes & scripts).", "path": "Samples~/03_Forces_Newton" }
