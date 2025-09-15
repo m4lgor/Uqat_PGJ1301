@@ -53,9 +53,8 @@
   },
   "samples": [
     { "displayName": "00 — Scripts partagés", "description": "Scripts communs modifiables par les étudiants.", "path": "Samples~/00-Shared" },
-    { "displayName": "00 — Assets communs (légers)", "description": "Materials/Textures/PhysicMaterials légers communs.", "path": "Samples~/00-AssetsCommunsLegers" },
-    { "displayName": "01 — Cours Introduction", "description": "Scènes & scripts d’introduction.", "path": "Samples~/01-Cours-Introduction" },
-    { "displayName": "02 — Cours Maths & Géométrie", "description": "Dot/Cross, spaces, matrices/quaternions.", "path": "Samples~/02-Cours-MathsGeometrie" },
-    { "displayName": "03 — Cours Newton & Forces", "description": "Lois de Newton, forces, gravité (scènes & scripts).", "path": "Samples~/03-Cours-Newton-Forces" }
+    { "displayName": "01 — Cours Introduction", "description": "Scènes & scripts d’introduction.", "path": "Samples~/01_Introduction" },
+    { "displayName": "02 — Cours Maths & Géométrie", "description": "Dot/Cross, spaces, matrices/quaternions.", "path": "Samples~/02_Mathematiques" },
+    { "displayName": "03 — Cours Newton & Forces", "description": "Lois de Newton, forces, gravité (scènes & scripts).", "path": "Samples~/03_Forces_Newton" }
   ]
 }
