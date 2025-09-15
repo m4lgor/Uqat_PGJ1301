@@ -1,0 +1,10 @@
+# On garde les .meta !
+[Ll]ibrary/
+[Tt]emp/
+[Bb]uild/
+[Bb]uilds/
+obj/
+*.csproj
+*.sln
+*.user
+*.DS_Store
