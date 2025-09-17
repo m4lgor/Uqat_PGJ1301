@@ -5,7 +5,6 @@ public class HudConsole : MonoBehaviour
 {
     [SerializeField] bool _Enable = true;
 
-    private int _MaxMessages = 10; // how many messages to keep
     private static Queue<string> _Messages = new Queue<string>();
 
     private GUIStyle _BackgroundStyle;
