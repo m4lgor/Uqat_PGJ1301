@@ -5,7 +5,7 @@ using UnityEngine;
 // This file is not for you to Edit. You should inherit from it, and add your component to the Spaceship in the scene.
 // The restriction is that you cannot influence the position or apply any forces to this object in your inherited class.
 // It must be done through the RocketEngine.Thrust(float forceMagnitude)
-// _TargetPosition is the position that you should aim to reach for with your Spaceship.
+// _TargetPosition is the position that you should aim to reach with your Spaceship.
 // -----------------------
 
 public class SpaceshipControllerBase : MonoBehaviour
