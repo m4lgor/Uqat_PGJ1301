@@ -4,10 +4,6 @@ public class TODO_Earth_Moon : MonoBehaviour
 {
     [SerializeField] Transform Target;
 
-    [SerializeField] float RotateAroundSpeed = 45.0f;
-    [SerializeField] float RotateSpeed = 0.0f;
-    [SerializeField] bool LookAtTarget = false;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
