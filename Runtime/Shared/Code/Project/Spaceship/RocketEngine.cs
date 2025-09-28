@@ -21,22 +21,38 @@ public class RocketEngine : MonoBehaviour
         _Owner = transform.parent.gameObject;
     }
 
+    /// <summary>
+    /// Accessor to know if the propulsion is enabled or not.
+    /// </summary>  
     public bool IsPropulsionEnabled()
     {
         return _PropulsionEnabled;
     }
 
+    /// <summary>
+    /// Returns the direction in which this engine applies force.
+    /// This Vector3 is in world space.
+    /// This Vector3 is normalized.
+    /// </summary>
     public Vector3 GetPushDirection()
     {
-        // Use the forward direction of the GameObject as the force direction
-        return -transform.right; // Changed from transform.forward to transform.right
+        // Use the -transform.right direction of the GameObject as the force direction
+        return -transform.right; 
     }
 
+    /// <summary>
+    /// Enable or disable the propulsion of this engine.
+    /// The engine will not apply any force if disabled.
+    /// </summary>
     public void EnablePropulsion(bool InEnablePropulsion)
     {
         _PropulsionEnabled = InEnablePropulsion;
     }
 
+    /// <summary>
+    /// Thrust the spaceship by applying a force at the engine's position.
+    /// Value will be clamped between 0 and MaxPower.
+    /// </summary>
     public void Thrust(float Power)
     {
         if(!IsPropulsionEnabled())
@@ -50,6 +66,12 @@ public class RocketEngine : MonoBehaviour
         {
             Debug.Log("RocketEngine - I Can't find my spaceship'body. Cancelling Thrust.");
             return;
+        }
+
+        if(Power < 0)
+        {
+            Debug.LogWarning("RocketEngine - Power is negative ! I can't do this ! Clamping to 0 power");
+            Power = 0;
         }
 
         if (Power > _MaxPower)

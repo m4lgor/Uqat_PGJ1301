@@ -1,7 +1,7 @@
 {
   "name": "com.uqat.pgj1301",
   "displayName": "UQAT PGJ1301 (Gameplay/Physique) — Kit",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "unity": "6.0",
   "description": "Kit pédagogique: scripts runtime, shaders et TP par cours. Samples importables dans Assets/.",
   "author": { "name": "Hugo Millet" },

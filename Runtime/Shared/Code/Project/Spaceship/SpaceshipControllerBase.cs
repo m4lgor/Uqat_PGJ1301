@@ -4,8 +4,10 @@ using UnityEngine;
 // -----------------------
 // This file is not for you to Edit. You should inherit from it, and add your component to the Spaceship in the scene.
 // The restriction is that you cannot influence the position or apply any forces to this object in your inherited class.
-// It must be done through the RocketEngine.Thrust(float forceMagnitude)
+// It must be done through the RocketEngine.Thrust(float Power)
+// -----------------------
 // _TargetPosition is the position that you should aim to reach with your Spaceship.
+// You can Access the _TargetPosition through the public property TargetPosition.
 // -----------------------
 
 public class SpaceshipControllerBase : MonoBehaviour
@@ -16,9 +18,12 @@ public class SpaceshipControllerBase : MonoBehaviour
 
     private void Awake()
     {
+        // Cache the Rigidbody component and all RocketEngine components in children
         _Rigidbody = GetComponent<Rigidbody>();
         _RocketEngines.AddRange(GetComponentsInChildren<RocketEngine>());
-        _TargetPosition = transform.position; // Initialize target position to the spaceship's current position
+
+        // Initialize target position to the spaceship's current position
+        _TargetPosition = transform.position; 
     }
 
     protected void Update()
@@ -26,27 +31,33 @@ public class SpaceshipControllerBase : MonoBehaviour
         UpdateTarget();
     }
 
+    /// <summary>
+    /// Updates the target position by finding the first GoalComponent in the scene.
+    /// </summary>
     void UpdateTarget()
     {
-        var goalCompoennt = FindFirstObjectByType<GoalComponent>();
-        if (!goalCompoennt)
+        var goalComponent = FindFirstObjectByType<GoalComponent>();
+        if (!goalComponent)
         {
             return;
         }
 
-        _TargetPosition = goalCompoennt.transform.position;
+        _TargetPosition = goalComponent.transform.position;
     }
 
-
+    /// <summary>
+    /// Returns the current target position that the spaceship should aim to reach.
+    /// Setting this property will update the target position.
+    /// </summary>  
     public Vector3 TargetPosition
     {
         get { return _TargetPosition; }
-        set
-        {
-            _TargetPosition = value;
-        }
+        set { _TargetPosition = value; }
     }
 
+    /// <summary>
+    /// Utility function to disable all engines.
+    /// </summary>
     protected void DisableAllEngines()
     {
         foreach (var rocketEngine in _RocketEngines)
@@ -58,7 +69,7 @@ public class SpaceshipControllerBase : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
+    protected void OnDrawGizmos()
     {
         if (!GlobalSettings.Instance)
             return;

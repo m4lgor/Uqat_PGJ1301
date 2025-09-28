@@ -51,8 +51,9 @@ MonoBehaviour:
   WorldUp: {x: 0, y: 1, z: 0}
   WorldDepth: {x: 0, y: 0, z: 1}
   _ArenaBorderPrefab: {fileID: 2561484323213098744, guid: d80a600b57bc72f4bb503ee9ac9db1b5, type: 3}
-  EnableGravity: 1
   ArenaSize: {x: 20, y: 20}
+  EnableGravity: 1
+  UnlockSpaceshipZRotation: 0
 --- !u!114 &4383162118079454613
 MonoBehaviour:
   m_ObjectHideFlags: 0
