@@ -6,12 +6,19 @@ public class GoalComponent : MonoBehaviour
     GoalSpawner _spawner;
     SpaceshipControllerBase _spaceship;
 
+    [SerializeField] bool _IsGloballyFound = false;
+
     // TODO : actually reflect the remaining time 
     float _FalloffDistance = 0.0f;
     float _FalloffSpeed = 1.0f;
 
     // Positive or Negative
     float _PN = 1.0f;
+
+    public bool IsAutoFound
+    {
+        get { return _IsGloballyFound; }
+    }
 
     public void Init(GoalSpawner spawner, SpaceshipControllerBase spaceship)
     {

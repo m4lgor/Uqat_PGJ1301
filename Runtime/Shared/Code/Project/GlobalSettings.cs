@@ -29,6 +29,12 @@ public class GlobalSettings : MonoBehaviour
     [SerializeField] bool RandomizeSpaceshipZRotation = false;
     [SerializeField] bool UnlockSpaceshipZRotation = false;
 
+    /// <summary>
+    /// Arena
+    /// </summary>
+    [SerializeField, Min(3)] private int _ArenaSides = 4; 
+    [SerializeField] private float BorderThickness = 1f;
+
     GUIStyle _Panel, _Header, _Item;
 
     private void Awake()
@@ -105,26 +111,75 @@ public class GlobalSettings : MonoBehaviour
         // Setup arena borders
         if (_ArenaBorderPrefab != null)
         {
-            // Top Border
-            var topBorder = Instantiate(_ArenaBorderPrefab, new Vector3(0.0f, ArenaSize.y * 0.5f, 0.0f), Quaternion.identity);
-            topBorder.transform.localScale = new Vector3(ArenaSize.x, 1.0f, 1.0f);
-
-            // Bottom Border
-            var bottomBorder = Instantiate(_ArenaBorderPrefab, new Vector3(0.0f, -ArenaSize.y * 0.5f, 0.0f), Quaternion.identity);
-            bottomBorder.transform.localScale = new Vector3(ArenaSize.x, 1.0f, 1.0f);
-
-            // Left Border
-            var leftBorder = Instantiate(_ArenaBorderPrefab, new Vector3(-ArenaSize.x * 0.5f, 0.0f, 0.0f), Quaternion.identity);
-            leftBorder.transform.localScale = new Vector3(1.0f, ArenaSize.y, 1.0f);
-
-            // Right Border
-            var rightBorder = Instantiate(_ArenaBorderPrefab, new Vector3(ArenaSize.x * 0.5f, 0.0f, 0.0f), Quaternion.identity);
-            rightBorder.transform.localScale = new Vector3(1.0f, ArenaSize.y, 1.0f);
+            BuildArena();
         }
         else
         {
             Debug.LogWarning("GlobalSettings - No Arena Border Prefab assigned. Skipping arena border creation.");
         }
+    }
+
+    void BuildArena()
+    {
+        if (!_ArenaBorderPrefab) return;
+
+        int n = Mathf.Max(3, _ArenaSides);
+
+        if (n == 4)
+        {
+            BuildRectangle();
+            return;
+        }
+
+        // -------- Regular N-gon (inscribed in circle) --------
+        float R = 0.5f * Mathf.Min(ArenaSize.x, ArenaSize.y);   // circumradius (fits inside the given rect)
+        float a = R * Mathf.Cos(Mathf.PI / n);                  // apothem (center -> side center)
+        float L = 2f * R * Mathf.Sin(Mathf.PI / n);             // side length
+
+        for (int i = 0; i < n; i++)
+        {
+            float ang = i * Mathf.PI * 2f / n;
+
+            // Outward normal of side i in 2D
+            Vector2 normal2 = new Vector2(Mathf.Cos(ang), Mathf.Sin(ang));
+
+            // Center of side i is apothem units along the normal
+            Vector3 pos = new Vector3(normal2.x * a, normal2.y * a, 0f);
+
+            // Rotate so local +X aligns with the side's tangent (perpendicular to normal)
+            // Tangent angle is ang + 90°
+            float rotDeg = ang * Mathf.Rad2Deg + 90f;
+            Quaternion rot = Quaternion.Euler(0f, 0f, rotDeg); // rotate around Z for XY plane
+
+            var t = Instantiate(_ArenaBorderPrefab, pos, rot, transform);
+
+            // Scale: length along local X; thickness along the axis normal to the side within the plane
+            var s = t.transform.localScale;
+            s.x = L;
+            // In XY, the inward/outward thickness axis is local Y
+            s.y = BorderThickness;
+
+            t.transform.localScale = s;
+            t.name = $"Border_{i}";
+        }
+    }
+    private void BuildRectangle()
+    {
+        // Exactly replicates your original 4-border behavior (XY version),
+        // and adapts properly if you're on the XZ plane.
+        // XY plane (2D top-down)
+        var top = Instantiate(_ArenaBorderPrefab, new Vector3(0f, +ArenaSize.y * 0.5f, 0f), Quaternion.identity, transform);
+        var bottom = Instantiate(_ArenaBorderPrefab, new Vector3(0f, -ArenaSize.y * 0.5f, 0f), Quaternion.identity, transform);
+        var left = Instantiate(_ArenaBorderPrefab, new Vector3(-ArenaSize.x * 0.5f, 0f, 0f), Quaternion.identity, transform);
+        var right = Instantiate(_ArenaBorderPrefab, new Vector3(+ArenaSize.x * 0.5f, 0f, 0f), Quaternion.identity, transform);
+
+        top.transform.localScale = new Vector3(ArenaSize.x, BorderThickness, top.transform.localScale.z);
+        bottom.transform.localScale = new Vector3(ArenaSize.x, BorderThickness, bottom.transform.localScale.z);
+        left.transform.localScale = new Vector3(BorderThickness, ArenaSize.y, left.transform.localScale.z);
+        right.transform.localScale = new Vector3(BorderThickness, ArenaSize.y, right.transform.localScale.z);
+
+        top.name = "Border_Top"; bottom.name = "Border_Bottom";
+        left.name = "Border_Left"; right.name = "Border_Right";
     }
 
     void EnsureGUIStyles()

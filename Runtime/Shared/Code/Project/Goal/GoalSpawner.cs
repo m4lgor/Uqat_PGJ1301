@@ -116,6 +116,12 @@ public class GoalSpawner : MonoBehaviour
         var behaviour = _currentGoal.GetComponent<GoalComponent>();
         if (behaviour == null) behaviour = _currentGoal.AddComponent<GoalComponent>();
         behaviour.Init(this, _spaceshipComponent);
+
+        Vector3 desiredDirection = (_spaceshipComponent.transform.position - _currentGoal.transform.position).normalized;
+        Vector3 obstacleOffset = Vector3.up; // This is bad hardcoded
+        Quaternion delta = Quaternion.FromToRotation(obstacleOffset, desiredDirection);
+
+        _currentGoal.transform.rotation = delta * _currentGoal.transform.rotation;
     }
 
     public void OnGoalReached()

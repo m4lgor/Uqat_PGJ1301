@@ -76,8 +76,10 @@ public class MouseInteractionController : MonoBehaviour
     {
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
 
-        Ray ray = _cam.ScreenPointToRay(_mouseScreenPosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, _RayDistance))
+        Ray ray = BuildRayFromScreen(_cam, _mouseScreenPosition);
+        float rayDistance = (_RayDistance > 0f ? _RayDistance : Mathf.Infinity);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, ~0, QueryTriggerInteraction.Ignore))
         {
             Rigidbody rb = hit.rigidbody;
             if (rb == null) return;
@@ -118,5 +120,24 @@ public class MouseInteractionController : MonoBehaviour
     {
         Ray ray = _cam.ScreenPointToRay(_mouseScreenPosition);
         return ray.GetPoint(_dragDistanceFromCamera); // 5 units from the camera
+    }
+
+    private static Ray BuildRayFromScreen(Camera cam, Vector2 screenPos)
+    {
+        if (!cam.orthographic)
+        {
+            // Perspective: built-in is perfect.
+            return cam.ScreenPointToRay(screenPos);
+        }
+
+        // Orthographic:
+        // 1) Get the world position on the near clip plane under the cursor
+        // 2) Shoot forward along camera forward
+        var near = cam.nearClipPlane;
+        Vector3 worldOnNear =
+            cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, near));
+        Vector3 dir = cam.transform.forward; // already normalized
+
+        return new Ray(worldOnNear, dir);
     }
 }

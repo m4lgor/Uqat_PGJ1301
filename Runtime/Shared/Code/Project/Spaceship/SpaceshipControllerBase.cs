@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 // -----------------------
 // This file is not for you to Edit. You should inherit from it, and add your component to the Spaceship in the scene.
@@ -13,14 +14,20 @@ using UnityEngine;
 public class SpaceshipControllerBase : MonoBehaviour
 {
     protected List<RocketEngine> _RocketEngines = new List<RocketEngine>();
+    protected List<ISensor> _Sensors = new List<ISensor>();
     protected Vector3 _TargetPosition = Vector3.zero; // Aim to reach this position
     protected Rigidbody _Rigidbody; // Cache Rigidbody component
 
     private void Awake()
     {
-        // Cache the Rigidbody component and all RocketEngine components in children
+        // Cache the Rigidbody component
         _Rigidbody = GetComponent<Rigidbody>();
+
+        // Cache all RocketEngine components in children
         _RocketEngines.AddRange(GetComponentsInChildren<RocketEngine>());
+
+        // Cache all ISensor components in children
+        _Sensors.AddRange(GetComponentsInChildren<ISensor>());
 
         // Initialize target position to the spaceship's current position
         _TargetPosition = transform.position; 
@@ -42,7 +49,10 @@ public class SpaceshipControllerBase : MonoBehaviour
             return;
         }
 
-        _TargetPosition = goalComponent.transform.position;
+        if(goalComponent.IsAutoFound)
+        {
+            _TargetPosition = goalComponent.transform.position;
+        }
     }
 
     /// <summary>
