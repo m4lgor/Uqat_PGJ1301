@@ -228,7 +228,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2e8095c08f35414cae23b98703fad86, type: 3}
---- !u!1001 &4955703406109853187
+--- !u!1001 &2137729284
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -236,10 +236,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1151685381721454751, guid: b14996cfd73b7e84aa759db47730ac92, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1417136001343635468, guid: b14996cfd73b7e84aa759db47730ac92, type: 3}
       propertyPath: m_Name
       value: Spaceship
@@ -284,30 +280,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9045668026730635995, guid: b14996cfd73b7e84aa759db47730ac92, type: 3}
-      propertyPath: m_Constraints
-      value: 120
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1417136001343635468, guid: b14996cfd73b7e84aa759db47730ac92, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4955703406109853195}
+      addedObject: {fileID: 2137729286}
   m_SourcePrefab: {fileID: 100100000, guid: b14996cfd73b7e84aa759db47730ac92, type: 3}
---- !u!1 &4955703406109853189 stripped
+--- !u!1 &2137729285 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1417136001343635468, guid: b14996cfd73b7e84aa759db47730ac92, type: 3}
-  m_PrefabInstance: {fileID: 4955703406109853187}
+  m_PrefabInstance: {fileID: 2137729284}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4955703406109853195
+--- !u!114 &2137729286
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4955703406109853189}
+  m_GameObject: {fileID: 2137729285}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2b096bd0cf222c4db4f3214598448a2, type: 3}
@@ -318,4 +310,4 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1073378382}
-  - {fileID: 4955703406109853187}
+  - {fileID: 2137729284}
