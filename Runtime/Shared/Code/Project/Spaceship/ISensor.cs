@@ -15,6 +15,11 @@ public interface ISensor
         public LayerMask mask = LayerMask.GetMask("Default");           // Layers
     }
 
+    /// <summary>
+    /// This class holds the results of a sensing operation.
+    /// It can store multiple hit points, normals, distances, colliders, and rigidbodies.
+    /// Use RaycastAll or similar methods to populate these lists.
+    /// </summary>
     public class SensorOutput
     {
         public bool hasHit = false;
@@ -23,7 +28,7 @@ public interface ISensor
         public List<Vector3> normals = new List<Vector3>(); 
         public List<float> distances = new List<float>();
         public List<Collider> colliders = new List<Collider>();
-        public List<Rigidbody> rigidbody = new List<Rigidbody>();
+        public List<Rigidbody> rigidbodies = new List<Rigidbody>();
 
         public void Cleanup()
         {
@@ -31,7 +36,7 @@ public interface ISensor
             normals.Clear();
             distances.Clear();
             colliders.Clear();
-            rigidbody.Clear();
+            rigidbodies.Clear();
         }
     }
 }
