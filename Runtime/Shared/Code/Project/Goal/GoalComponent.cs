@@ -48,6 +48,7 @@ public class GoalComponent : MonoBehaviour
         if (other.GetComponent<SpaceshipControllerBase>() == _spaceship)
         {
             _spawner.OnGoalReached();
+            _spaceship.OnGoalReached(this);
         }
     }
 }

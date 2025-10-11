@@ -79,6 +79,16 @@ public class SpaceshipControllerBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Event called when a goal is reached by this spaceship.
+    /// </summary>
+    /// <param name="goalComponent"></param>
+    public virtual void OnGoalReached(GoalComponent goalComponent)
+    {
+        // You can override this method in your inherited class to handle goal reached events.
+        // This base implementation does nothing.
+    }
+
     protected void OnDrawGizmos()
     {
         if (!GlobalSettings.Instance)
