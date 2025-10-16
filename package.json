@@ -1,7 +1,7 @@
 {
   "name": "com.uqat.pgj1301",
   "displayName": "UQAT PGJ1301 (Gameplay/Physique) — Kit",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "unity": "6.0",
   "description": "Kit pédagogique: scripts runtime, shaders et TP par cours. Samples importables dans Assets/.",
   "author": { "name": "Hugo Millet" },
@@ -58,6 +58,7 @@
     { "displayName": "04 — Collisions & Contacts", "description": "Collisions et Contacts entre primitives", "path": "Samples~/04_Collisions" },
     { "displayName": "05 — Queries", "description": "Scene queries", "path": "Samples~/05_Queries" },
     { "displayName": "06 — Joints & Ragdolls", "description": "Joints and Ragdolls", "path": "Samples~/06_Joints_Ragdolls" },
+    { "displayName": "06 — Motors & Character Controller", "description": "JMotors & Character Controller", "path": "Samples~/07_Motors_CC" },
     { "displayName": "99 — Projet", "description": "Fichiers nécessaires à votre projet.", "path": "Samples~/99_Project" }
   ]
 }
