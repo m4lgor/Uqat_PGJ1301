@@ -1,24 +1,48 @@
 using UnityEngine;
-using UnityEngine.Accessibility;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.GraphicsBuffer;
 
 public class RocketEngine : MonoBehaviour
 {
-    [SerializeField] ForceMode _ForceMode = ForceMode.Force;
-    [SerializeField] float _MaxPower = 10.0f;
+    [SerializeField] private ForceMode _ForceMode = ForceMode.Force;
+    [SerializeField] private float _MaxPower = 10.0f;
 
     private GameObject _Owner;
     private bool _PropulsionEnabled = false;
+    private float _ThrustPower = 0.0f;
 
     public float GetMaxPower()
     {
         return _MaxPower;
     }
 
-    void Start()
+    private void Start()
     {
         _Owner = transform.parent.gameObject;
+    }
+
+    /// <summary>
+    /// Fixed Update to have a stable step for physics operations
+    /// </summary>
+    private void FixedUpdate()
+    {
+        if (!_PropulsionEnabled)
+        {
+            return;
+        }
+        
+        if (_ThrustPower == 0.0f)
+        {
+            return;
+        }
+        
+        var targetRb = _Owner.GetComponent<Rigidbody>();
+        if (!targetRb)
+        {
+            return;
+        }
+        
+        // Apply the force to the owner.
+        var forceDirection = GetPushDirection();
+        targetRb.AddForceAtPosition(forceDirection * _ThrustPower, transform.position, _ForceMode);
     }
 
     /// <summary>
@@ -62,7 +86,7 @@ public class RocketEngine : MonoBehaviour
         }
 
         var targetRb = _Owner.GetComponent<Rigidbody>();
-        if (targetRb == null)
+        if (!targetRb)
         {
             Debug.Log("RocketEngine - I Can't find my spaceship'body. Cancelling Thrust.");
             return;
@@ -80,11 +104,10 @@ public class RocketEngine : MonoBehaviour
             Power = _MaxPower;
         }
 
-        var forceDirection = GetPushDirection();
-        targetRb.AddForceAtPosition(forceDirection * Power, transform.position, _ForceMode);
+        _ThrustPower = Power;
     }
 
-    void OnDrawGizmos()
+    protected void OnDrawGizmos()
     {
         var forceDirection = GetPushDirection(); // Ensure the force direction is updated to the current forward direction
         Gizmos.color = IsPropulsionEnabled() ? UnityEngine.Color.green : UnityEngine.Color.red;
