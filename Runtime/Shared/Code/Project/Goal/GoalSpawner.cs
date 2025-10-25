@@ -113,9 +113,17 @@ public class GoalSpawner : MonoBehaviour
             collider.isTrigger = true; // Ensure it's a trigger 
         }
 
-        var behaviour = _currentGoal.GetComponent<GoalComponent>();
-        if (behaviour == null) behaviour = _currentGoal.AddComponent<GoalComponent>();
+        var behaviour = _currentGoal.GetComponent<GoalComponentBase>();
+        if (behaviour == null) behaviour = _currentGoal.AddComponent<GoalComponentBase>();
         behaviour.Init(this, _spaceshipComponent);
+        behaviour.OnReady = () =>
+        {
+            _spaceshipComponent?.OnGoalSpawned();
+        };
+        behaviour.OnEnd = () =>
+        {
+            _spaceshipComponent?.OnGoalDestroyed();
+        };
 
         Vector3 desiredDirection = (_spaceshipComponent.transform.position - _currentGoal.transform.position).normalized;
         Vector3 obstacleOffset = Vector3.up; // This is bad hardcoded

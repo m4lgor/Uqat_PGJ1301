@@ -72,7 +72,7 @@ public class LockedCameraOrtho : MonoBehaviour
             _target1 = targetObject1.transform;
         }
 
-        var targetObject2 = GameObject.FindFirstObjectByType<GoalComponent>();
+        var targetObject2 = GameObject.FindFirstObjectByType<GoalComponentBase>();
         if (!targetObject2)
         {
             Debug.LogError("Can't find a GoalComponent in this scene. Contact your favorite teacher.");

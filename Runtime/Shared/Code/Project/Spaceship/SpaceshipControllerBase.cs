@@ -88,6 +88,32 @@ public class SpaceshipControllerBase : MonoBehaviour
         // You can override this method in your inherited class to handle goal reached events.
         // This base implementation does nothing.
     }
+    
+    /// <summary>
+    /// Event called when a payload goal is reached by a payload.
+    /// </summary>
+    /// <param name="goalComponent"></param>
+    public virtual void OnPayloadGoalReached(PayloadGoalComponent payloadGoalComponent)
+    {
+        // You can override this method in your inherited class to handle payload goal reached events.
+        // This base implementation does nothing.
+    }
+
+    /// <summary>
+    /// Event called when a goal is spawned and ready in the scene
+    /// </summary>
+    public virtual void OnGoalSpawned()
+    {
+        // Override this to know when a Goal is Spawned and ready
+    }
+    
+    /// <summary>
+    /// Event called when a goal is destroyed. It will still be valid until the end of the frame.
+    /// </summary>
+    public virtual void OnGoalDestroyed()
+    {
+        // Override this to know when a Goal is Destroyed.
+    }
 
     protected void OnDrawGizmos()
     {
